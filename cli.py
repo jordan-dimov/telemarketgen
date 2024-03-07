@@ -1,10 +1,18 @@
-from typer import Typer
+import typer
 
 from ai.audio import get_wav_duration, generate_music, generate_speech
+from ai.ideas import (
+    generate_idea_on_local,
+    generate_idea_via_openai,
+    generate_idea_via_anthropic,
+    generate_description_for_idea_via_anthropic,
+)
 from ai.images import generate_image
 from ai.video import generate_telemarketing_video
 
-cli = Typer()
+from api.settings import settings
+
+cli = typer.Typer()
 
 
 @cli.command()
@@ -37,6 +45,54 @@ def gen_video(
     generate_telemarketing_video(
         image_paths, music_path, voiceover_path, total_length, output
     )
+
+
+@cli.command()
+def gen_idea(hint: str = ""):
+    if settings.anthropic_api_key:
+        idea = generate_idea_via_anthropic(hint)
+    elif settings.openai_api_key:
+        idea = generate_idea_via_openai(hint)
+    else:
+        idea = generate_idea_on_local(hint)
+    typer.echo(idea)
+
+
+@cli.command()
+def gen(hint: str = ""):
+    idea = generate_idea_via_anthropic(hint)
+    typer.echo(idea)
+
+    description = generate_description_for_idea_via_anthropic(idea)
+    typer.echo(description)
+
+    # Generate 3 images
+    generate_image(idea, "product1.jpg")
+    generate_image(idea, "product2.jpg")
+    generate_image(idea, "product3.jpg")
+
+    # Generate speech
+    generate_speech(description, "speech.wav")
+
+    # Generate music
+    generate_music(
+        "Telemarketing-style background music to advertise a novel, modern consumer electronics product",
+        30,
+        "music.wav",
+    )
+
+    total_length = get_wav_duration("speech.wav")
+
+    # Generate video
+    generate_telemarketing_video(
+        ["product1.jpg", "product2.jpg", "product3.jpg"],
+        "music.wav",
+        "speech.wav",
+        total_length + 1,
+        "product.mp4",
+    )
+
+    typer.echo("Video generated in: product.mp4")
 
 
 if __name__ == "__main__":

@@ -23,3 +23,4 @@ class VideoClip(Base):
     initiated_at = Column(DateTime)
     created_at = Column(DateTime, nullable=True)
     path_to_video = Column(String, nullable=True)
+    generation_output = Column(String, nullable=True)

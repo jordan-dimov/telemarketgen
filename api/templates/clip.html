@@ -1,0 +1,68 @@
+
+{% extends "base.html" %}
+
+{% block title %}Video Clip: {{ clip.title }}{% endblock %}
+
+{% block content %}
+<div class="row">
+    <div class="col-8">
+        <h2 class="my-4">Video Clip: {{ clip.title }}</h2>
+        <div class="row">
+            <div class="col-md-4">
+                <div class="card mb-4">
+                    <div class="card-header">
+                        <h5 class="card-title">{{ clip.title }}</h5>
+                        <p class="card-text">{{ clip.description }}</p>
+                    </div>
+                    <div class="card-body">
+                        <p class="card-text"><small class="text-muted">Duration: {{ clip.duration }}</small></p>
+                    </div>
+                    <div class="card-footer">
+                        <a href="/clip/{{ clip.id }}/" class="btn btn-sm btn-primary">Details</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-4">
+        <h2 class="my-4">Clip Details</h2>
+        <table class="table">
+            <tbody>
+                <tr>
+                    <th>Title</th>
+                    <td>{{ clip.title }}</td>
+                </tr>
+                <tr>
+                    <th>Description</th>
+                    <td>{{ clip.description }}</td>
+                </tr>
+                {% if clip.duration_seconds %}
+                <tr>
+                    <th>Duration</th>
+                    <td>{{ clip.duration_seconds }}s</td>
+                </tr>
+                {% endif %}
+                <tr>
+                    <th>Initiated</th>
+                    <td>{{ clip.initiated_at }}</td>
+                </tr>
+                {% if clip.created_at %}
+                <tr>
+                    <th>Created</th>
+                    <td>{{ clip.created_at }}</td>
+                </tr>
+                {% endif %}
+                {% if clip.generation_phase != "completed" %}
+                <tr>
+                    <th>Generation phase</th>
+                    <td>{{ clip.generation_phase }}</td>
+                </tr>
+                <tr>
+                    <th>Generation output</th>
+                    <td>{{ clip.generation_output }}</td>
+                </tr>
+                {% endif %}
+            </tbody>
+    </div>
+</div>
+{% endblock %}

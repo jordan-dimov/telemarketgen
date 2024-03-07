@@ -3,15 +3,6 @@
 {% block title %}Video Clips{% endblock %}
 
 {% block content %}
-    {% if generation_id %}
-    <div class="alert alert-primary" role="alert">
-        <h4 class="alert-heading">Video Generation in Progress</h4>
-        <p>Your video is being generated. Please wait a few minutes and refresh this page to see the new video clip.</p>
-        <hr>
-        <p class="mb-0">Generation ID: {{ generation_id }}</p>
-    </div>
-    {% endif %}
-
     <div class="row">
         <div class="col-8">
             <h2 class="my-4">Video Clips</h2>
@@ -19,10 +10,15 @@
                 {% for clip in clips %}
                     <div class="col-md-4">
                         <div class="card mb-4">
-                            <div class="card-body">
+                            <div class="card-header">
                                 <h5 class="card-title">{{ clip.title }}</h5>
                                 <p class="card-text">{{ clip.description }}</p>
+                            </div>
+                            <div class="card-body">
                                 <p class="card-text"><small class="text-muted">Duration: {{ clip.duration }}</small></p>
+                            </div>
+                            <div class="card-footer">
+                                <a href="/clip/{{ clip.id }}/" class="btn btn-sm btn-primary">Details</a>
                             </div>
                         </div>
                     </div>
