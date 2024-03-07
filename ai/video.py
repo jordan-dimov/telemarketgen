@@ -1,6 +1,4 @@
-from moviepy.audio.AudioClip import CompositeAudioClip
-from moviepy.audio.io.AudioFileClip import AudioFileClip
-from moviepy.video.VideoClip import ImageClip
+from moviepy.editor import ImageClip, AudioFileClip, CompositeAudioClip
 from moviepy.video.compositing.concatenate import concatenate_videoclips
 
 from loguru import logger

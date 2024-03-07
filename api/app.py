@@ -1,5 +1,7 @@
 import uuid
 
+from loguru import logger
+
 from fastapi import FastAPI, Depends, Request, Form, BackgroundTasks
 from fastapi.responses import RedirectResponse, HTMLResponse
 from sqlalchemy.orm import Session
@@ -7,6 +9,10 @@ from fastapi.templating import Jinja2Templates
 from starlette.middleware import Middleware
 from starlette.middleware.sessions import SessionMiddleware
 
+from ai.ideas import (
+    generate_idea_via_anthropic,
+    generate_description_for_idea_via_anthropic,
+)
 from api.background_tasks import create_video_clip
 from api.settings import settings
 from api.models import Base, VideoClip, engine
@@ -39,8 +45,12 @@ def new_clip(
     db: Session = Depends(get_db),
 ):
     generation_id = str(uuid.uuid4())
-    title = title or "Untitled"
-    description = "No description"
+    hint = title or ""
+    logger.info("Generating new idea...")
+    idea = generate_idea_via_anthropic(hint)
+    logger.info("Generating telemarketing script for the idea...")
+    description = generate_description_for_idea_via_anthropic(idea)
+    logger.info("Adding background task...")
     background_tasks.add_task(create_video_clip, db, generation_id, title, description)
     flash(request, f"A new video is being generated: {generation_id}", "success")
     # Redirect to the home page

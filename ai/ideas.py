@@ -73,7 +73,7 @@ def generate_description_for_idea_via_anthropic(idea: str) -> str:
     # Use Anthropic chat completion to generate a description for an innovative consumer product, based on the idea
 
     client = Anthropic()
-    prompt = f"Write a brief 80-style telemarketing script for this innovative consumer product: {idea}"
+    prompt = f"Write a brief 80-style telemarketing script for this innovative consumer product. Output plain text only - no additional output please! Idea: {idea}"
 
     logger.info("Generating description...")
     description = client.messages.create(
