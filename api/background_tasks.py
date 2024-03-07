@@ -26,7 +26,7 @@ def create_video_clip(db: Session, generation_uuid: str, title: str, description
     output_folder = Path(settings.output_folder) / generation_uuid
     output_folder.mkdir(parents=True, exist_ok=True)
 
-    db.path_to_video = str(output_folder / "telemarketing.mp4")
+    db_video.path_to_video = str(output_folder / "telemarketing.mp4")
 
     image_paths = []
     for n in range(1, 4):
