@@ -28,4 +28,4 @@ class VideoClip(Base):
     @property
     def video_url(self):
         fn = self.path_to_video.split("/")[-1]
-        return f"/clips/{self.title}/{fn}"
+        return f"/clips/{self.generation_uuid}/{fn}"

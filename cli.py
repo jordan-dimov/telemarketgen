@@ -97,7 +97,6 @@ def gen(hint: str = ""):
 
 @cli.command()
 def populate_db_from_samples(samples_dir: str = "samples"):
-    import uuid
     from api.utils import get_db
     from datetime import datetime
     from pathlib import Path
@@ -116,7 +115,7 @@ def populate_db_from_samples(samples_dir: str = "samples"):
                     typer.echo(f"Adding video for product: {title}")
                     description = f"This is a sample video for the `{title}` product"
                     db_video = VideoClip(
-                        generation_uuid=str(uuid.uuid4()),
+                        generation_uuid=title,
                         generation_phase="Completed",
                         title=title,
                         description=description,
