@@ -34,7 +34,7 @@ def create_video_clip(db: Session, generation_uuid: str, title: str, description
         db.commit()
         db.refresh(db_video)
         img_path = str(output_folder / f"product{n}.jpg")
-        generate_image(db_video, img_path)
+        generate_image(db_video.title, img_path)
         image_paths.append(img_path)
 
     db_video.generation_phase = "Speech"

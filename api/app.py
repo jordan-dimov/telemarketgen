@@ -51,7 +51,7 @@ def new_clip(
     logger.info("Generating telemarketing script for the idea...")
     description = generate_description_for_idea_via_anthropic(idea)
     logger.info("Adding background task...")
-    background_tasks.add_task(create_video_clip, db, generation_id, title, description)
+    background_tasks.add_task(create_video_clip, db, generation_id, idea, description)
     flash(request, f"A new video is being generated: {generation_id}", "success")
     # Redirect to the home page
     return RedirectResponse("/", status_code=303)
