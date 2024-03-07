@@ -25,9 +25,7 @@ def generate_music(
     synthesizer = pipeline("text-to-audio", model="facebook/musicgen-small")
 
     logger.info("Generating music...")
-    music = synthesizer(
-        description, forward_params={"do_sample": True}
-    )
+    music = synthesizer(description, forward_params={"do_sample": True})
 
     logger.info("Writing WAV...")
     scipy.io.wavfile.write(output_wav, rate=music["sampling_rate"], data=music["audio"])

@@ -3,18 +3,41 @@
 {% block title %}Video Clips{% endblock %}
 
 {% block content %}
-    <h1 class="my-4">Video Clips</h1>
+    {% if generation_id %}
+    <div class="alert alert-primary" role="alert">
+        <h4 class="alert-heading">Video Generation in Progress</h4>
+        <p>Your video is being generated. Please wait a few minutes and refresh this page to see the new video clip.</p>
+        <hr>
+        <p class="mb-0">Generation ID: {{ generation_id }}</p>
+    </div>
+    {% endif %}
+
     <div class="row">
-        {% for clip in clips %}
-            <div class="col-md-4">
-                <div class="card mb-4">
-                    <div class="card-body">
-                        <h5 class="card-title">{{ clip.title }}</h5>
-                        <p class="card-text">{{ clip.description }}</p>
-                        <p class="card-text"><small class="text-muted">Duration: {{ clip.duration }}</small></p>
+        <div class="col-8">
+            <h2 class="my-4">Video Clips</h2>
+            <div class="row">
+                {% for clip in clips %}
+                    <div class="col-md-4">
+                        <div class="card mb-4">
+                            <div class="card-body">
+                                <h5 class="card-title">{{ clip.title }}</h5>
+                                <p class="card-text">{{ clip.description }}</p>
+                                <p class="card-text"><small class="text-muted">Duration: {{ clip.duration }}</small></p>
+                            </div>
+                        </div>
                     </div>
-                </div>
+                {% endfor %}
             </div>
-        {% endfor %}
+        </div>
+        <div class="col-4">
+            <h2 class="my-4">Generate New Video Clip</h2>
+            <form action="/new-clip" method="post">
+                <div class="mb-3">
+                    <label for="title" class="form-label">Title</label>
+                    <input type="text" class="form-control" id="title" name="title" placeholder="Enter a title">
+                </div>
+                <button type="submit" class="btn btn-primary">Generate new clip</button>
+            </form>
+        </div>
     </div>
 {% endblock %}

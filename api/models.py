@@ -15,7 +15,11 @@ class VideoClip(Base):
     __tablename__ = "videoclips"
 
     id = Column(Integer, primary_key=True, index=True)
+    generation_uuid = Column(String, index=True)
+    generation_phase = Column(String, default="Initiated")
     title = Column(String, index=True)
-    description = Column(String)
-    duration = Column(String)
-    created_at = Column(DateTime)
+    description = Column(String, nullable=True)
+    duration_seconds = Column(Integer, default=0)
+    initiated_at = Column(DateTime)
+    created_at = Column(DateTime, nullable=True)
+    path_to_video = Column(String, nullable=True)
