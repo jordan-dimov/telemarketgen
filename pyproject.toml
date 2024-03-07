@@ -18,11 +18,13 @@ accelerate = "^0.27.2"
 moviepy = "^1.0.3"
 opencv-python = "^4.9.0.80"
 typer = "^0.9.0"
+loguru = "^0.7.2"
 
 [tool.poetry.group.dev.dependencies]
 ipdb = "^0.13.13"
 ruff = "^0.3.0"
 mypy = "^1.8.0"
+pytest = "^8.0.2"
 
 [build-system]
 requires = ["poetry-core"]
