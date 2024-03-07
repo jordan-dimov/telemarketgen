@@ -39,3 +39,6 @@ As soon as the idea and the telemarketing script are complete, you will see it s
 Generation happens in a FastAPI Background Task, so you can close the browser and come back later to check on the progress (as long as the server is still running).
 
 
+### Samples
+
+Look at the MP4 video files in the `samples/` folder. Or create your own using the CLI or the API!
