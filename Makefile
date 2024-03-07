@@ -21,6 +21,6 @@ build: lint test
 
 .PHONY: run
 run:
-	poetry run uvicorn api/app.py:app
+	poetry run uvicorn api.app:app
 
 

@@ -20,13 +20,13 @@ def get_wav_duration(file_path):
 
 
 def generate_music(
-    description: str, length_s: int = 30, output_wav: str = "chirp_out.wav"
+    description: str, _length_s: int = 30, output_wav: str = "chirp_out.wav"
 ):
     synthesizer = pipeline("text-to-audio", model="facebook/musicgen-small")
 
     logger.info("Generating music...")
     music = synthesizer(
-        description, forward_params={"do_sample": True, "max_length": length_s * 40}
+        description, forward_params={"do_sample": True}
     )
 
     logger.info("Writing WAV...")

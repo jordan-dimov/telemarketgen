@@ -1,0 +1,20 @@
+{% extends "base.html" %}
+
+{% block title %}Video Clips{% endblock %}
+
+{% block content %}
+    <h1 class="my-4">Video Clips</h1>
+    <div class="row">
+        {% for clip in clips %}
+            <div class="col-md-4">
+                <div class="card mb-4">
+                    <div class="card-body">
+                        <h5 class="card-title">{{ clip.title }}</h5>
+                        <p class="card-text">{{ clip.description }}</p>
+                        <p class="card-text"><small class="text-muted">Duration: {{ clip.duration }}</small></p>
+                    </div>
+                </div>
+            </div>
+        {% endfor %}
+    </div>
+{% endblock %}
