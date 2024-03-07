@@ -4,6 +4,7 @@ from loguru import logger
 
 from fastapi import FastAPI, Depends, Request, Form, BackgroundTasks
 from fastapi.responses import RedirectResponse, HTMLResponse
+from fastapi.staticfiles import StaticFiles
 from sqlalchemy.orm import Session
 from fastapi.templating import Jinja2Templates
 from starlette.middleware import Middleware
@@ -22,6 +23,8 @@ app = FastAPI(
     title=settings.app_name,
     middleware=[Middleware(SessionMiddleware, secret_key=settings.session_secret)],
 )
+
+app.mount("/clips", StaticFiles(directory=settings.output_folder), name="clips")
 
 templates = Jinja2Templates(directory="api/templates")
 templates.env.globals["get_flashed_messages"] = get_flashed_messages

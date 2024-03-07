@@ -23,4 +23,11 @@ build: lint test
 run:
 	poetry run uvicorn api.app:app
 
+.PHONY: docker-build
+docker-build:
+	docker build -t telemarketgen:latest .
+
+.PHONY: docker-run
+docker-run:
+	docker run -p 8000:8000 --env-file .env telemarketgen:latest
 

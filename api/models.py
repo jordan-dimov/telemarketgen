@@ -24,3 +24,8 @@ class VideoClip(Base):
     created_at = Column(DateTime, nullable=True)
     path_to_video = Column(String, nullable=True)
     generation_output = Column(String, nullable=True)
+
+    @property
+    def video_url(self):
+        fn = self.path_to_video.split("/")[-1]
+        return f"/clips/{self.title}/{fn}"

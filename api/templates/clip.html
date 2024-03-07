@@ -8,14 +8,16 @@
     <div class="col-8">
         <h2 class="my-4">Video Clip: {{ clip.title }}</h2>
         <div class="row">
-            <div class="col-md-4">
+            <div class="col-md-12">
                 <div class="card mb-4">
                     <div class="card-header">
                         <h5 class="card-title">{{ clip.title }}</h5>
-                        <p class="card-text">{{ clip.description }}</p>
                     </div>
                     <div class="card-body">
-                        <p class="card-text"><small class="text-muted">Duration: {{ clip.duration }}</small></p>
+                        <video width="800" height="600" controls>
+                          <source src="{{ clip.video_url }}" type="video/mp4">
+                          Your browser does not support the video tag.
+                        </video>
                     </div>
                     <div class="card-footer">
                         <a href="/clip/{{ clip.id }}/" class="btn btn-sm btn-primary">Details</a>
@@ -65,7 +67,7 @@
                 <tr>
                     <th>Video</th>
                     <td>
-                        <a href="{{ clip.path_to_video }}" target="_blank">{{ clip.path_to_video }}</a>
+                        <a href="{{ clip.video_url }}" target="_blank">{{ clip.path_to_video }}</a>
                     </td>
                 </tr>
             </tbody>

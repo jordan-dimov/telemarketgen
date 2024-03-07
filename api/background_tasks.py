@@ -10,23 +10,21 @@ from api.settings import settings
 
 
 def create_video_clip(db: Session, generation_uuid: str, title: str, description: str):
+    output_folder = Path(settings.output_folder) / generation_uuid
+    output_folder.mkdir(parents=True, exist_ok=True)
+
     db_video = VideoClip(
         generation_uuid=generation_uuid,
         generation_phase="Initiated",
         title=title,
         description=description,
         duration_seconds=0,
-        path_to_video="",
+        path_to_video=str(output_folder / "telemarketing.mp4"),
         initiated_at=datetime.now(),
     )
     db.add(db_video)
     db.commit()
     db.refresh(db_video)
-
-    output_folder = Path(settings.output_folder) / generation_uuid
-    output_folder.mkdir(parents=True, exist_ok=True)
-
-    db_video.path_to_video = str(output_folder / "telemarketing.mp4")
 
     image_paths = []
     for n in range(1, 4):

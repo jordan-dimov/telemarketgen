@@ -32,6 +32,8 @@ To do a complete video generation from scratch, just run `poetry run cli.py gen`
 
 The API is implemented using FastAPI. You can start the server with `make run` and open it in any browser at 'http://0.0.0.0:8000/'
 
+A local file SQLite database is created and used to store metadata about the generated video clips. 
+
 On the main (index) page, you will see a form where you can input a hint for the product you want to advertise. If you leave it empty, the AI will come up with its own idea. Just press the "Generate" button and wait for the video to be generated.
 
 As soon as the idea and the telemarketing script are complete, you will see it show on the index page - even while the video is still being generated. Clicking on the "Details" button will take you to a page where you can see the progress of the video generation (look for 'Generation phase: ') and play the final video once it's ready.

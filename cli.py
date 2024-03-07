@@ -95,6 +95,42 @@ def gen(hint: str = ""):
     typer.echo("Video generated in: product.mp4")
 
 
+@cli.command()
+def populate_db_from_samples(samples_dir: str = "samples"):
+    import uuid
+    from api.utils import get_db
+    from datetime import datetime
+    from pathlib import Path
+    from api.models import Base, VideoClip, engine
+
+    Base.metadata.create_all(bind=engine)
+
+    db = next(get_db())
+
+    # The 'samples' directory has sub-folders with one mp4 file each. For the title use the name of the subfolder.
+    for folder in Path(samples_dir).iterdir():
+        if folder.is_dir():
+            for video_file in folder.iterdir():
+                if video_file.suffix == ".mp4":
+                    title = folder.name
+                    typer.echo(f"Adding video for product: {title}")
+                    description = f"This is a sample video for the `{title}` product"
+                    db_video = VideoClip(
+                        generation_uuid=str(uuid.uuid4()),
+                        generation_phase="Completed",
+                        title=title,
+                        description=description,
+                        duration_seconds=30,
+                        path_to_video=str(video_file),
+                        initiated_at=datetime.now(),
+                    )
+                    db.add(db_video)
+                    db.commit()
+                    db.refresh(db_video)
+
+    db.close()
+
+
 if __name__ == "__main__":
     cli()
 
